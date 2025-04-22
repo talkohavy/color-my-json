@@ -1,5 +1,11 @@
 # color-my-json
 
+## 0.0.7
+
+### Patch Changes
+
+- Added linebreak bellow "Installation" in the README.md file.
+
 ## 0.0.6
 
 ### Patch Changes
