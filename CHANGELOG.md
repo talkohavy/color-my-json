@@ -1,5 +1,11 @@
 # color-my-json
 
+## 0.0.8
+
+### Patch Changes
+
+- Added more keywords in package.json for beter search visibility.
+
 ## 0.0.7
 
 ### Patch Changes
