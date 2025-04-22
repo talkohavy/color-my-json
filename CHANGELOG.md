@@ -1,5 +1,11 @@
 # color-my-json
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated README.md. There is no `isPretty` option.
+
 ## 0.0.5
 
 ### Patch Changes
