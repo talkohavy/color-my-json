@@ -20,31 +20,10 @@ const defaultTheme: ColorTheme = {
   NullLiteral: COLORS.bold,
 };
 
-const defaultOptions: ColorizeOptions = {
-  colors: defaultTheme,
-};
+export function colorMyJson(jsonStr: string, colorTheme = {} as ColorTheme) {
+  const tokens = tokenize(jsonStr);
 
-export type ColorizeOptions = {
-  colors?: ColorTheme;
-  indent?: number;
-  isPretty?: boolean;
-};
-
-export function colorizeJson(jsonStr: string, options: ColorizeOptions = {}) {
-  const { colors, indent = 2, isPretty } = options;
-
-  if (typeof jsonStr !== 'string') {
-    throw new TypeError('Input must be a string');
-  }
-
-  const updatedJsonStr = isPretty ? JSON.stringify(JSON.parse(jsonStr), null, indent) : jsonStr;
-
-  const tokens = tokenize(updatedJsonStr);
-
-  const theme: Record<TokenTypeWithLevels, any> = {
-    ...defaultOptions.colors!,
-    ...colors,
-  };
+  const theme: Record<TokenTypeWithLevels, string> = { ...defaultTheme, ...colorTheme };
 
   return tokens.reduce((output, token) => `${output}${theme[token.type]}${token.value}${COLORS.stop}`, '');
 }

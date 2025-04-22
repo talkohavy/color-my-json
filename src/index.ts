@@ -1,2 +1,2 @@
-export { colorizeJson } from './colorize-json';
-export type { ColorizeOptions } from './colorize-json';
+export { colorMyJson, type ColorTheme } from './colorize-json';
+export { COLORS } from './colors';

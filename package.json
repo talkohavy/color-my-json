@@ -26,6 +26,14 @@
     "registry": "https://registry.npmjs.org/",
     "access": "restricted"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talkohavy/color-my-json.git"
+  },
+  "bugs": {
+    "url": "https://github.com/talkohavy/color-my-json/issues",
+    "email": "talkohavy@gmail.com"
+  },
   "author": "Tal Kohavy <talkohavy@gmail.com> (https://github.com/talkohavy)",
   "license": "MIT",
   "devDependencies": {
