@@ -11,6 +11,8 @@ This package provides a single, easy-to-use function that allows you to colorize
 - 🚀 **Fast**: We're not using neither `JSON.parse` nor `JSON.stringify` under the hood. We' all about the colors. You provide the stringified JSON, and we simply color it.
 - 🖥️ **VS Code-Inspired Colors**: Default colors are designed to match the look and feel of VS Code.
 
+<br />
+
 ## Installation
 
 Install the package using your favorite package manager:
