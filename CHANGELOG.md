@@ -1,5 +1,11 @@
 # color-my-json
 
+## 0.0.4
+
+### Patch Changes
+
+- Now shipping with types. Also exporting COLORS.
+
 ## 0.0.3
 
 ### Patch Changes
