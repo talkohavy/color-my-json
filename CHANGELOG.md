@@ -1,5 +1,11 @@
 # color-my-json
 
+## 0.0.5
+
+### Patch Changes
+
+- The package.json definition was wrong. Fixed it.
+
 ## 0.0.4
 
 ### Patch Changes
