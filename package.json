@@ -1,6 +1,6 @@
 {
   "name": "color-my-json",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "A single function to color you json for pretty display in the console.",
   "private": "true",
   "type": "module",
