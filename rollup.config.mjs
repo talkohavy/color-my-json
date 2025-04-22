@@ -22,6 +22,7 @@ export default {
   plugins: [
     typescript({
       tsconfig: './tsconfig.json',
+      include: ['src/index.ts'],
     }),
     terser(),
   ],
