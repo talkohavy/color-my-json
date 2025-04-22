@@ -3,3 +3,4 @@ node_modules
 .vscode
 .github/copilot-instructions.md
 .npmrc
+dist
