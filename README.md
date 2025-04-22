@@ -39,7 +39,7 @@ const json = JSON.stringify({
   features: ['Colorful Output', 'Customizable Themes', 'Pretty Print'],
 });
 
-const coloredOutput = colorMyJson(json, { isPretty: true });
+const coloredOutput = colorMyJson(json);
 
 console.log(coloredOutput);
 ```
