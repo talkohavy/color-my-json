@@ -1,15 +1,23 @@
 {
   "name": "color-my-json",
   "version": "0.0.4",
-  "description": "A single function to color you json for pretty display in the console.",
+  "description": "A single function to color your json for pretty printing in the console.",
   "private": "true",
-  "type": "module",
   "keywords": ["json", "color", "pretty", "console", "display"],
-  "main": "index.js",
+  "main": "index.esm.mjs",
+  "types": "index.d.ts",
+  "module": "index.esm.mjs",
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./index.d.js",
-      "default": "./index.js"
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.esm.mjs"
+      },
+      "require": {
+        "types": "./index.d.ts",
+        "default": "./index.cjs.cjs"
+      }
     }
   },
   "scripts": {
