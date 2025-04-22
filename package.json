@@ -1,13 +1,33 @@
 {
   "name": "color-my-json",
   "version": "1.0.0",
+  "description": "A single function to color you json for pretty display in the console.",
+  "private": "true",
+  "type": "module",
+  "keywords": ["json", "color", "pretty", "console", "display"],
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "exports": {
+    ".": {
+      "types": "./index.d.js",
+      "default": "./index.js"
+    }
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "eslint -c eslint.config.js",
+    "format-check": "prettier . --check",
+    "format-fix": "prettier . --write",
+    "test": "node --test",
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "export NODE_ENV=production && node ./build.config.js",
+    "build:dev": "export NODE_ENV=development && node ./build.config.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "restricted"
+  },
+  "author": "Tal Kohavy <talkohavy@gmail.com> (https://github.com/talkohavy)",
+  "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.25.1",
     "esbuild": "^0.25.2",
