@@ -11,12 +11,12 @@ export default {
     {
       file: 'dist/index.cjs.cjs',
       format: 'cjs',
-      // sourcemap: true,
+      sourcemap: true,
     },
     {
       file: 'dist/index.esm.mjs',
       format: 'esm',
-      // sourcemap: true,
+      sourcemap: true,
     },
   ],
   plugins: [
