@@ -1,5 +1,11 @@
 # color-my-json
 
+## 0.0.9
+
+### Patch Changes
+
+- Remove sourcemaps from production.
+
 ## 0.0.8
 
 ### Patch Changes
