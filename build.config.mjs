@@ -59,7 +59,7 @@ function copyStaticFiles() {
 
   const filesToCopyArr = [
     { filename: 'package.json', sourceDirPath: [], destinationDirPath: [] },
-    { filename: '.npmignore', sourceDirPath: [], destinationDirPath: [] },
+    { filename: '.npmignore', sourceDirPath: [], destinationDirPath: [], isAllowedToFail: true },
     { filename: '.npmrc', sourceDirPath: [], destinationDirPath: [], isAllowedToFail: true },
     { filename: 'README.md', sourceDirPath: [], destinationDirPath: [] },
   ];
@@ -72,8 +72,9 @@ function copyStaticFiles() {
       cpSync(sourceFileFullPath, destinationFileFullPath);
       console.log(`    • ${filename}`);
     } catch (error) {
-      console.error(error);
       if (isAllowedToFail) return;
+
+      console.error(error);
 
       throw new Error('File MUST exists in order to PASS build process! cp operation failed...');
     }

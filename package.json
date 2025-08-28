@@ -36,8 +36,8 @@
     "format-fix": "prettier . --write",
     "test": "node --test",
     "typecheck": "tsc -p tsconfig.json",
-    "build": "export NODE_ENV=production && node ./build.config.js",
-    "build:dev": "export NODE_ENV=development && node ./build.config.js"
+    "build": "export NODE_ENV=production && node ./build.config.mjs",
+    "build:dev": "export NODE_ENV=development && node ./build.config.mjs"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
