@@ -21,47 +21,59 @@ import path from 'path';
 const ROOT_PROJECT = process.cwd();
 const outDirName = 'dist';
 const COLORS = {
-  green: '[32m',
-  blue: '[34m',
-  stop: '[39m',
+  green: '\x1b[32m',
+  blue: '\x1b[34m',
+  yellow: '\x1b[33m',
+  magenta: '\x1b[35m',
+  stop: '\x1b[39m',
 };
 
 buildPackageConfig();
 
 async function buildPackageConfig() {
-  cleanDistDirectory();
+  const startTime = Date.now();
+
+  cleanTargetDirectory(outDirName);
 
   build();
 
-  copyStaticFiles();
+  copyStaticFiles(outDirName);
 
-  manipulatePackageJsonFile(); // <--- must come AFTER copy of static files
+  manipulatePackageJsonFile(outDirName); // <--- must come AFTER copy of static files
 
-  console.log(`${os.EOL}${COLORS.blue}DONE !!!${COLORS.stop}${os.EOL}`);
+  printDoneMessage(startTime);
 }
 
-function cleanDistDirectory() {
+/**
+ * @param {string} outDirName
+ */
+function cleanTargetDirectory(outDirName) {
   console.log(`${COLORS.green}- Step 1:${COLORS.stop} clear the ${outDirName} directory`);
-  if (os.platform() === 'win32') {
-    execSync(`rd /s /q ${outDirName}`);
-  } else {
-    execSync(`rm -rf ${outDirName}`);
-  }
+  const deleteCommand = os.platform() === 'win32' ? `rd /s /q ${outDirName}` : `rm -rf ${outDirName}`;
+
+  execSync(deleteCommand);
+
+  console.log('');
 }
 
 function build() {
   console.log(`${COLORS.green}- Step 2:${COLORS.stop} build`);
   execSync('rollup --config'); // or the full command: rollup --config rollup.config.mjs
+
+  console.log('');
 }
 
-function copyStaticFiles() {
+/**
+ * @param {string} outDirName
+ */
+function copyStaticFiles(outDirName) {
   console.log(`${COLORS.green}- Step 3:${COLORS.stop} copy static files`);
 
   const filesToCopyArr = [
     { filename: 'package.json', sourceDirPath: [], destinationDirPath: [] },
-    { filename: '.npmignore', sourceDirPath: [], destinationDirPath: [], isAllowedToFail: true },
-    { filename: '.npmrc', sourceDirPath: [], destinationDirPath: [], isAllowedToFail: true },
     { filename: 'README.md', sourceDirPath: [], destinationDirPath: [] },
+    { filename: '.npmrc', sourceDirPath: [], destinationDirPath: [], isAllowedToFail: true },
+    { filename: '.npmignore', sourceDirPath: [], destinationDirPath: [], isAllowedToFail: true },
   ];
 
   filesToCopyArr.forEach(({ filename, sourceDirPath, destinationDirPath, isAllowedToFail }) => {
@@ -70,7 +82,7 @@ function copyStaticFiles() {
       const destinationFileFullPath = path.resolve(ROOT_PROJECT, outDirName, ...destinationDirPath, filename);
 
       cpSync(sourceFileFullPath, destinationFileFullPath);
-      console.log(`    • ${filename}`);
+      console.log(`\t• ${COLORS.blue}${filename}${COLORS.stop}`);
     } catch (error) {
       if (isAllowedToFail) return;
 
@@ -79,9 +91,14 @@ function copyStaticFiles() {
       throw new Error('File MUST exists in order to PASS build process! cp operation failed...');
     }
   });
+
+  console.log('');
 }
 
-function manipulatePackageJsonFile() {
+/**
+ * @param {string} outDirName
+ */
+function manipulatePackageJsonFile(outDirName) {
   console.log(`${COLORS.green}- Step 4:${COLORS.stop} copy & manipulate the package.json file`);
 
   const packageJsonPath = path.resolve(ROOT_PROJECT, outDirName, 'package.json');
@@ -96,9 +113,32 @@ function manipulatePackageJsonFile() {
   packageJson.publishConfig.access = 'public';
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson));
 
-  console.log(`  • ${COLORS.blue}changed${COLORS.stop} from private to public`);
-  console.log(`  • ${COLORS.blue}deleted${COLORS.stop} "scripts" key`);
-  console.log(`  • ${COLORS.blue}deleted${COLORS.stop} "devDependencies" key`);
-  console.log(`  • ${COLORS.blue}changed${COLORS.stop} publishConfig access to public`);
-  console.log(`  • ${COLORS.blue}package.json${COLORS.stop} file written successfully!`);
+  console.log(`\t• ${COLORS.blue}deleted${COLORS.stop} "private" key`);
+  console.log(`\t• ${COLORS.blue}deleted${COLORS.stop} "scripts" key`);
+  console.log(`\t• ${COLORS.blue}deleted${COLORS.stop} "devDependencies" key`);
+  console.log(`\t• ${COLORS.blue}changed${COLORS.stop} publishConfig access to public`);
+
+  console.log(`📝 ${COLORS.magenta}package.json${COLORS.stop} file written successfully!`);
+
+  console.log('');
+}
+
+/**
+ * @param {number} startTime in milliseconds
+ */
+function printDoneMessage(startTime) {
+  const endTime = Date.now();
+  const elapsedMs = endTime - startTime;
+  let elapsedTimeMessage;
+
+  if (elapsedMs >= 1000) {
+    const elapsedSec = (elapsedMs / 1000).toFixed(2);
+    elapsedTimeMessage = `${elapsedSec} sec`;
+  } else {
+    elapsedTimeMessage = `${elapsedMs} ms`;
+  }
+
+  const doneMessage = `✨Done in ${elapsedTimeMessage} ✅`;
+
+  console.log(COLORS.green, doneMessage, COLORS.stop, os.EOL);
 }
